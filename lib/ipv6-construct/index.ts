@@ -1,4 +1,3 @@
-import * as cdk from 'aws-cdk-lib';
 import * as blueprints from '@aws-quickstart/eks-blueprints';
 import { Construct } from "constructs";
 import { IpFamily } from 'aws-cdk-lib/aws-eks';

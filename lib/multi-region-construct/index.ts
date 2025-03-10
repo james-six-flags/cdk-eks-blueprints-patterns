@@ -104,7 +104,9 @@ async function prevalidateSecrets() {
         await utils.validateSecret(SECRET_ARGO_ADMIN_PWD, 'us-west-2');
     }
     catch(error) {
-        throw new Error("Both github-ssh-key and argo-admin-secret secrets must be setup for the multi-region pattern to work.");
+        throw new Error("Both github-ssh-key and argo-admin-secret secrets must be setup for the multi-region pattern to work.",
+            { cause: error }
+        );
     }
 }
 

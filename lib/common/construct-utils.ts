@@ -31,7 +31,7 @@ export async function prevalidateSecrets(pattern: string, region?: string, ...se
             await utils.validateSecret(secret, region ?? process.env.CDK_DEFAULT_REGION!);
         }
         catch(error) {
-            throw new Error(`${secret} secret must be setup for the ${pattern} pattern to work`);
+            throw new Error(`${secret} secret must be setup for the ${pattern} pattern to work: `, { cause: error});
         }
     }
 }
