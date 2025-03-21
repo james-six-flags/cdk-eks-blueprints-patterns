@@ -40,7 +40,7 @@
     "@paralus/paralus-eks-blueprints-addon": "^0.1.5",
     "@rafaysystems/rafay-eks-blueprints-addon": "^0.0.2",
     "@snyk-partners/snyk-monitor-eks-blueprints-addon": "^1.1.1",
-    "aws-cdk": "2.173.4",
+    "aws-cdk": "2.178.2",
     "aws-cdk-lib": "2.173.4",
     "eks-blueprints-cdk-kubeflow-ext": "0.1.9",
     "kubeshark": "^0.0.9",
