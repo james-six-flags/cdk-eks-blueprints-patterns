@@ -4,6 +4,7 @@ import * as cdk from 'aws-cdk-lib';
 import { StackProps } from 'aws-cdk-lib';
 import * as eks from 'aws-cdk-lib/aws-eks';
 import { Construct } from 'constructs';
+import { ArnPrincipal } from 'aws-cdk-lib/aws-iam';
 // Team implementations
 import * as team from '../teams/pipeline-multi-env-gitops';
 
@@ -11,6 +12,9 @@ import * as team from '../teams/pipeline-multi-env-gitops';
 const GITHUB_ORG = 'aws-samples';
 const CLUSTER_VERSION = eks.KubernetesVersion.V1_26;
 const WORKLOAD_REPO = `git@github.com:${GITHUB_ORG}/eks-blueprints-workloads.git`;
+
+const gitOwner = 'james-six-flags';
+const gitRepository = 'cdk-eks-blueprints-patterns';
 
 export function populateWithContextDefaults(
     app: cdk.App,
@@ -34,7 +38,7 @@ export interface PipelineMultiEnvGitopsProps {
     pipelineEnv: cdk.Environment;
 }
 
-export default class PipelineMultiEnvGitops {
+export class PipelineMultiEnvGitops extends cdk.Stack {
     readonly DEFAULT_ENV: cdk.Environment = {
         account: process.env.CDK_DEFAULT_ACCOUNT,
         region: process.env.CDK_DEFAULT_REGION,
@@ -101,15 +105,14 @@ export default class PipelineMultiEnvGitops {
 
         try {
             // TODO - add dynamic gitowner suport when using codeStar config const { gitOwner, gitRepositoryName } = await getRepositoryData();
-            const gitRepositoryName = 'cdk-eks-blueprints-patterns';
-
+            
             blueprints.CodePipelineStack.builder()
                 .application('npx ts-node bin/pipeline-multienv-gitops.ts')
                 .name('eks-blueprint-pipeline')
-                .owner(GITHUB_ORG)
+                .owner('james-six-flags')
                 .codeBuildPolicies(blueprints.DEFAULT_BUILD_POLICIES)
                 .repository({
-                    repoUrl: gitRepositoryName,
+                    repoUrl: 'cdk-eks-blueprints-patterns',
                     credentialsSecretName: 'github-token',
                     targetRevision: 'main',
                 })
